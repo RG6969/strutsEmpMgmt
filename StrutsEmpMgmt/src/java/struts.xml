@@ -36,5 +36,10 @@
             <result name="FAILURE">signup.jsp</result>
             
         </action> 
+        <action name="Preprocessing" class="com.exavalu.models.User" method="preSignup">
+            <result name="SUCCESS">login.jsp</result>
+            <result name="FAILURE">signup.jsp</result>
+            
+        </action> 
     </package>
 </struts>

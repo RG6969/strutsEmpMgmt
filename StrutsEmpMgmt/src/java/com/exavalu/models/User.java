@@ -29,6 +29,9 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
     private String firstName;
     private String lastName;
     private String status;
+    private String countryCode;
+    private String provinceCode;
+    private String districtCode;
 
     private SessionMap<String, Object> sessionMap = (SessionMap) ActionContext.getContext().getSession();
 
@@ -45,6 +48,7 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
     }
 
     public String doLogin() throws Exception {
+       
         String result = "FAILURE";
 
         boolean success = LoginService.getInstance().doLogin(this);
@@ -73,15 +77,46 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
     }
     public String signup() throws Exception {
         String result="FAILURE";
-        boolean result1 = LoginService.getInstance().doRegister(this);
-        
+        boolean result1 = LoginService.getInstance().doRegister(this);         
         if(result1){
             result = "SUCCESS";
             
         }
+        System.out.println(sessionMap);
         
         return result;
     }
+    public String preSignup() throws Exception {
+         sessionMap.clear();
+        String result="FAILURE";
+        
+        
+        ArrayList countryList = LoginService.getInstance().getAllCountries();
+        ArrayList provinceList = null;
+        ArrayList districtList = null;
+        
+        sessionMap.put("CountryList", countryList);
+        System.out.println("countries are"+this.countryCode);
+        System.err.println("state code"+ this.provinceCode);
+        if(this.countryCode!= null){
+             provinceList = LoginService.getInstance().getAllProvinces(this.countryCode);
+            sessionMap.put("ProvinceList", provinceList);
+            sessionMap.put("User", this);
+        }if(this.countryCode!= null && this.provinceCode!=null){
+             districtList = LoginService.getInstance().getAllDistrict(this.provinceCode);
+            sessionMap.put("DistrictList", districtList);
+            sessionMap.put("User", this);
+        }
+        
+        if(this.firstName!=null && this.lastName!=null && this.emailAddress!=null && this.password!=null && this.countryCode!= null && this.provinceCode!=null && this.districtCode!=null)
+        {
+            result = this.signup();
+        }
+        System.out.println(sessionMap);
+        
+        return result;
+    }
+    
 
     /**
      * @return the emailAddress
@@ -151,6 +186,48 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * @return the countryCode
+     */
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    /**
+     * @param countryCode the countryCode to set
+     */
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    /**
+     * @return the provinceCode
+     */
+    public String getProvinceCode() {
+        return provinceCode;
+    }
+
+    /**
+     * @param provinceCode the provinceCode to set
+     */
+    public void setProvinceCode(String provinceCode) {
+        this.provinceCode = provinceCode;
+    }
+
+    /**
+     * @return the districtCode
+     */
+    public String getDistrictCode() {
+        return districtCode;
+    }
+
+    /**
+     * @param districtCode the districtCode to set
+     */
+    public void setDistrictCode(String districtCode) {
+        this.districtCode = districtCode;
     }
 
     /**

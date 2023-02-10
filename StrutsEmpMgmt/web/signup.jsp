@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
     <head>
@@ -18,33 +18,70 @@
         <link href="css/signin.css" rel="stylesheet">
 
     </head>
+    <script>
+        function onChange()
+        {
+            var countrycode = document.getElementById("countryCode").value;
+            
+            signupForm.submit();
+        }
+    </script>
+
 
     <body class="text-center">
 
 
         <main class="form-signin w-100 m-auto">
-            <form action="Signup" method="post">
+            <form action="Preprocessing"  method="post" id="signupForm">
                 <img class="mb-4" src="images/flower-logo.jpg" alt="" width="200" height="200">
                 <h1 class="h3 mb-3 fw-normal">Please provide below information</h1>
 
                 <div class="form-floating">
-                    <input type="email" class="form-control" id="floatingInput" name="emailAddress" placeholder="name@example.com">
+                    <input type="email" class="form-control" id="floatingInput" name="emailAddress" placeholder="name@example.com" value="${User.getEmailAddress()}" required="required">
                     <label for="floatingInput">Email address</label>
                 </div>
                 <div class="form-floating">
-                    <input type="password" class="form-control" id="floatingPassword" name="password"  placeholder="Password">
+                    <input type="password" class="form-control" id="floatingPassword" name="password"  placeholder="Password" value="${User.getPassword()}" required="required">
                     <label for="floatingPassword">Password</label>
                 </div>
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="firstName" name="firstName"  placeholder="first name">
+                    <input type="text" class="form-control" id="firstName" name="firstName"  placeholder="first name" value="${User.getFirstName()}" required="required">
                     <label for="firstName">First Name</label>
                 </div>
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="lastName" name="lastName"  placeholder="last name">
+                    <input type="text" class="form-control" id="lastName" name="lastName"  placeholder="last name" value="${User.getLastName()}" required="required">
                     <label for="firstName">Last Name</label>
                 </div>
-                
-               
+                <div class="form-floating" >
+                    <select name="countryCode" class="form-select" id="countryCode" onchange="onChange()" >
+                        <option >select a country</option>
+                        <c:forEach items="${CountryList}" var="country">
+                            <option value=${country.getCountryCode()} <c:if test="${country.getCountryCode().equalsIgnoreCase(User.getCountryCode())}" > selected </c:if>> ${country.getCountryName()}  </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="form-floating" >
+                    <select name="provinceCode" class="form-select" id="provinceCode"  onchange="onChange()">
+                        <option >select a province</option>
+                        <c:forEach items="${ProvinceList}" var="province">
+                            <option value=${province.getProvinceCode() } <c:if test="${province.getProvinceCode().equalsIgnoreCase(User.getProvinceCode())}" > selected </c:if>> 
+                                ${province.getProvinceName()}  
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                    <div class="form-floating" >
+                    <select name="districtCode" class="form-select" id="districtCode" >
+                        <option >select a district</option>
+                        <c:forEach items="${DistrictList}" var="district">
+                            <option value=${district.getDistrictCode() } <c:if test="${district.getDistrictCode().equalsIgnoreCase(User.getDistrictCode())}" > selected </c:if>> 
+                                ${district.getDistrictName()}  
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+
+
 
                 <div class="checkbox mb-3">
                     <label>
@@ -57,9 +94,12 @@
                 </a>
                 <p class="mt-5 mb-3 text-muted">&copy; 2017?2022</p>
             </form>
+            
+
         </main>
 
 
 
     </body>
+
 </html>

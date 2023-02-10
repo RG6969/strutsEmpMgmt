@@ -5,7 +5,6 @@
 package com.exavalu.services;
 
 import com.exavalu.models.Employee;
-import com.exavalu.models.User;
 import com.exavalu.utils.JDBCConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
