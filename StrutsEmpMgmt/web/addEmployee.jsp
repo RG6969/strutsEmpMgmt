@@ -28,7 +28,7 @@
         <c:if test="${SuccessMsg != null}">
 
             <h1 style="color: lightgreen">${SuccessMsg}</h1> 
-            
+
             <c:redirect url="home.jsp"/>
         </c:if>
         <c:if test="${not empty ErrorMsg}">
@@ -73,7 +73,7 @@
                 <div class="form-floating" >
                     <select name="departmentId" class="form-select" id="departmentId" >
                         <option hidden>Select a Department</option>
-                       
+
                         <c:forEach items="${DeptList}" var="dept">
                             <option value=${dept.getDepartmentId()}> ${dept.getDepartName()}  </option>
                         </c:forEach>
@@ -84,7 +84,7 @@
                 <div class="form-floating">
                     <select name="roleId" class="form-select" id="roleId">
                         <option hidden  >Select a Role</option>
-                        
+
                         <c:forEach items="${RoleList}" var="roles">
                             <option value=${roles.getRoleId()}> ${roles.getRoleName()}  </option>
                         </c:forEach>   
@@ -106,9 +106,13 @@
                 </div>
 
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Save</button>
+                
+                
 
 
             </form>
+            
+
         </main>
         <script src="https://getbootstrap.com/docs/5.3/dist/js/bootstrap.bundle.min.js" ></script>
 

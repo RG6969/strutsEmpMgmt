@@ -37,9 +37,13 @@
             
         </action> 
         <action name="Preprocessing" class="com.exavalu.models.User" method="preSignup">
-            <result name="SUCCESS">login.jsp</result>
-            <result name="FAILURE">signup.jsp</result>
-            
+            <result name="SUCCESS">signup.jsp</result>  
+            <result name="PROVINCELIST">provinceList.jsp</result>  
+            <result name="DISTRICTLIST">districtList.jsp</result>         
         </action> 
+        <action name="AddData" class="com.exavalu.models.Person" method="doAddPerson">
+            <result name="SUCCESS">fetchAPI.jsp</result>
+            <result name="FAILURE">fetchAPI.jsp</result>
+        </action>
     </package>
 </struts>

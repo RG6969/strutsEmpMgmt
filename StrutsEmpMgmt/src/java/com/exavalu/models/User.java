@@ -88,7 +88,7 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
     }
     public String preSignup() throws Exception {
          sessionMap.clear();
-        String result="FAILURE";
+        String result="SUCCESS";
         
         
         ArrayList countryList = LoginService.getInstance().getAllCountries();
@@ -102,16 +102,15 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
              provinceList = LoginService.getInstance().getAllProvinces(this.countryCode);
             sessionMap.put("ProvinceList", provinceList);
             sessionMap.put("User", this);
-        }if(this.countryCode!= null && this.provinceCode!=null){
+            result = "PROVINCELIST";
+        }if(this.provinceCode!=null){
+            System.out.println("Country code: "+ this.countryCode+ "    and  state code:  "+ this.provinceCode);
              districtList = LoginService.getInstance().getAllDistrict(this.provinceCode);
             sessionMap.put("DistrictList", districtList);
             sessionMap.put("User", this);
+            result = "DISTRICTLIST";
         }
-        
-        if(this.firstName!=null && this.lastName!=null && this.emailAddress!=null && this.password!=null && this.countryCode!= null && this.provinceCode!=null && this.districtCode!=null)
-        {
-            result = this.signup();
-        }
+
         System.out.println(sessionMap);
         
         return result;

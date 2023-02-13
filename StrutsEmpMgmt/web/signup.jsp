@@ -18,13 +18,30 @@
         <link href="css/signin.css" rel="stylesheet">
 
     </head>
+    <script src="https://code.jquery.com/jquery-3.6.3.js" 
+                        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" 
+                crossorigin="anonymous"></script>
     <script>
         function onChange()
         {
             var countrycode = document.getElementById("countryCode").value;
-            
+            signupForm.setAttribute("action", "Preprocessing");
+
             signupForm.submit();
         }
+    
+    function fetchContent(selectedId, targetId){
+        $.ajax({
+            url: 'Preprocessing',
+            data:{
+                [selectedId]: $("#" + selectedId).val()
+            },
+            success: function (responseText){
+                $("#" + targetId).html(responseText);
+            }
+        });
+    }
+        
     </script>
 
 
@@ -32,7 +49,7 @@
 
 
         <main class="form-signin w-100 m-auto">
-            <form action="Preprocessing"  method="post" id="signupForm">
+            <form action="Signup"  method="post" id="signupForm">
                 <img class="mb-4" src="images/flower-logo.jpg" alt="" width="200" height="200">
                 <h1 class="h3 mb-3 fw-normal">Please provide below information</h1>
 
@@ -53,7 +70,7 @@
                     <label for="firstName">Last Name</label>
                 </div>
                 <div class="form-floating" >
-                    <select name="countryCode" class="form-select" id="countryCode" onchange="onChange()" >
+                    <select name="countryCode" class="form-select" id="countryCode" onchange="fetchContent('countryCode', 'provinceCode')" >
                         <option >select a country</option>
                         <c:forEach items="${CountryList}" var="country">
                             <option value=${country.getCountryCode()} <c:if test="${country.getCountryCode().equalsIgnoreCase(User.getCountryCode())}" > selected </c:if>> ${country.getCountryName()}  </option>
@@ -61,23 +78,14 @@
                     </select>
                 </div>
                 <div class="form-floating" >
-                    <select name="provinceCode" class="form-select" id="provinceCode"  onchange="onChange()">
+                    <select name="provinceCode" class="form-select" id="provinceCode" onchange="fetchContent('provinceCode', 'districtCode')" >
                         <option >select a province</option>
-                        <c:forEach items="${ProvinceList}" var="province">
-                            <option value=${province.getProvinceCode() } <c:if test="${province.getProvinceCode().equalsIgnoreCase(User.getProvinceCode())}" > selected </c:if>> 
-                                ${province.getProvinceName()}  
-                            </option>
-                        </c:forEach>
                     </select>
                 </div>
-                    <div class="form-floating" >
+
+                <div class="form-floating" >
                     <select name="districtCode" class="form-select" id="districtCode" >
                         <option >select a district</option>
-                        <c:forEach items="${DistrictList}" var="district">
-                            <option value=${district.getDistrictCode() } <c:if test="${district.getDistrictCode().equalsIgnoreCase(User.getDistrictCode())}" > selected </c:if>> 
-                                ${district.getDistrictName()}  
-                            </option>
-                        </c:forEach>
                     </select>
                 </div>
 
@@ -94,7 +102,7 @@
                 </a>
                 <p class="mt-5 mb-3 text-muted">&copy; 2017?2022</p>
             </form>
-            
+
 
         </main>
 
