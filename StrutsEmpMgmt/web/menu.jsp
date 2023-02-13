@@ -48,7 +48,7 @@
                     <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a class="nav-link px-2 text-white" href="addEmployee.jsp">Add Employee</a></li>
                     <li><a class="nav-link px-2 text-white" href="searchEmployee.jsp">Search Employee</a></li>
-                    <li><a class="nav-link px-2 text-white" href="fetchAPI.jsp">fetch API</a></li>
+                    <li><a class="nav-link px-2 text-white" href="FetchUrl">fetch API</a></li>
                     <li><a class="nav-link px-2 text-white" href="#">Update Employee</a></li>
                     </ul>
 

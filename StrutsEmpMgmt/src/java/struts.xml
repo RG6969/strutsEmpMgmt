@@ -41,7 +41,7 @@
             <result name="PROVINCELIST">provinceList.jsp</result>  
             <result name="DISTRICTLIST">districtList.jsp</result>         
         </action> 
-        <action name="AddData" class="com.exavalu.models.Person" method="doAddPerson">
+        <action name="FetchUrl" class="com.exavalu.models.Transcript" method="doFetchUrl">
             <result name="SUCCESS">fetchAPI.jsp</result>
             <result name="FAILURE">fetchAPI.jsp</result>
         </action>
