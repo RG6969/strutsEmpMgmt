@@ -5,12 +5,15 @@
 package com.exavalu.services;
 
 import com.exavalu.models.Employee;
+import com.exavalu.models.User;
 import com.exavalu.utils.JDBCConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -19,6 +22,8 @@ import java.util.ArrayList;
 public class EmployeeService {
 
     public static EmployeeService employeeService = null;
+    static Logger log = Logger.getLogger(User.class.getName());
+    static LocalDateTime localdatetime = LocalDateTime.now();
 
     public static EmployeeService getInstance() {
         if (employeeService == null) {
@@ -39,22 +44,23 @@ public class EmployeeService {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                if(rs.getString("status").equalsIgnoreCase("0")){
-                Employee emp = new Employee();
-                //emp.setAddress(rs.getString("address"));
-                emp.setEmployeeId(rs.getString("employeeId"));
-                emp.setFirstName(rs.getString("firstName"));
-                emp.setLastName(rs.getString("lastName"));
-                emp.setPhone(rs.getString("PhoneNo"));
-                emp.setGender(rs.getString("gender"));
-                emp.setAge(rs.getString("age"));
-                emp.setDepartmentName(rs.getString("departName"));
-                emp.setRoleName(rs.getString("roleName"));
-                emp.setBasicSalary(rs.getString("basicSalary"));
-                emp.setCarAllowance(rs.getString("carAllowance"));
-                emp.setSpecialAllowance(rs.getString("specialAllowance"));
+                if (rs.getString("status").equalsIgnoreCase("0")) {
+                    Employee emp = new Employee();
+                    //emp.setAddress(rs.getString("address"));
+                    emp.setEmployeeId(rs.getString("employeeId"));
+                    emp.setFirstName(rs.getString("firstName"));
+                    emp.setLastName(rs.getString("lastName"));
+                    emp.setPhone(rs.getString("PhoneNo"));
+                    emp.setGender(rs.getString("gender"));
+                    emp.setAge(rs.getString("age"));
+                    emp.setDepartmentName(rs.getString("departName"));
+                    emp.setRoleName(rs.getString("roleName"));
+                    emp.setBasicSalary(rs.getString("basicSalary"));
+                    emp.setCarAllowance(rs.getString("carAllowance"));
+                    emp.setSpecialAllowance(rs.getString("specialAllowance"));
 
-                empList.add(emp);}
+                    empList.add(emp);
+                }
 
             }
 
@@ -105,7 +111,8 @@ public class EmployeeService {
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log.error(localdatetime + "" + ex.getErrorCode());
         }
         return empList;
     }
@@ -151,6 +158,7 @@ public class EmployeeService {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
+            log.error(localdatetime + "" + ex.getErrorCode());
         }
 
         return result;
@@ -188,7 +196,8 @@ public class EmployeeService {
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log.error(localdatetime + "" + ex.getErrorCode());
         }
         return result;
     }
@@ -225,7 +234,8 @@ public class EmployeeService {
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log.error(localdatetime + "" + ex.getErrorCode());
         }
         return emp;
     }
@@ -247,7 +257,7 @@ public class EmployeeService {
             }
 
         } catch (SQLException ex) {
-
+            log.error(localdatetime + "" + ex.getErrorCode());
         }
         return result;
 

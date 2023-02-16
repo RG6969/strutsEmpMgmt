@@ -13,7 +13,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,8 +24,8 @@ import java.util.ArrayList;
 public class LoginService {
 
     public static LoginService loginService = null;
-
-
+    Logger log = Logger.getLogger(User.class.getName());
+    LocalDateTime localdatetime = LocalDateTime.now();
 
     private LoginService() {
     }
@@ -56,7 +58,7 @@ public class LoginService {
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            log.error(localdatetime + "" + ex.getErrorCode());
         }
 
         return success;
@@ -86,7 +88,8 @@ public class LoginService {
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+
+            log.error(localdatetime + "" + ex.getErrorCode());
         }
 
         return result;
@@ -96,11 +99,10 @@ public class LoginService {
     public ArrayList getAllCountries() {
         ArrayList countryList = new ArrayList();
         String sql = "Select * from countries";
-        
+
         try {
             Connection con = JDBCConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
-           
 
             System.out.println("LoginService :: " + ps);
 
@@ -114,21 +116,21 @@ public class LoginService {
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log.error(localdatetime + "" + ex.getErrorCode());
         }
-        System.err.println("country size"+countryList.size());
+        System.err.println("country size" + countryList.size());
         return countryList;
     }
 
     public ArrayList getAllProvinces(String countryID) {
         ArrayList provinceList = new ArrayList();
         String sql = "Select * from province where countryID=?";
-        
+
         try {
             Connection con = JDBCConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, countryID);
-           
 
             System.out.println("LoginService :: " + ps);
 
@@ -142,21 +144,21 @@ public class LoginService {
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log.error(localdatetime + "" + ex.getErrorCode());
         }
-        System.err.println("province size"+provinceList.size());
+        System.err.println("province size" + provinceList.size());
         return provinceList;
     }
 
     public ArrayList getAllDistrict(String provinceCode) {
         ArrayList districtList = new ArrayList();
         String sql = "Select * from district where provinceId=?";
-        
+
         try {
             Connection con = JDBCConnectionManager.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, provinceCode);
-           
 
             System.out.println("LoginService :: " + ps);
 
@@ -170,12 +172,10 @@ public class LoginService {
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log.error(localdatetime+""+ex.getErrorCode());
         }
-        System.err.println("province size"+districtList.size());
+        System.err.println("province size" + districtList.size());
         return districtList;
     }
-    }
-    
-
-
+}

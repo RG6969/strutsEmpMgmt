@@ -22,9 +22,9 @@
     <!<!-- I want to check my session before showing any content to the user -->
 
 
-
-
     <jsp:include page="menu.jsp"></jsp:include>
+
+
 
         <div id="example">
             <script>
@@ -76,7 +76,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                             <c:forEach items="${EmpList}" var="emp">
                                 <tr>
                                     <th scope="row">${emp.getEmployeeId()}</th>

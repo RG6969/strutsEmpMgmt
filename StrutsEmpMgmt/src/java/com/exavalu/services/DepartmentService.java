@@ -5,6 +5,8 @@
 package com.exavalu.services;
 
 import com.exavalu.models.Department;
+import static com.exavalu.services.EmployeeService.localdatetime;
+import static com.exavalu.services.EmployeeService.log;
 import com.exavalu.utils.JDBCConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,6 +40,7 @@ public class DepartmentService {
             
         } catch (SQLException ex) {
             ex.printStackTrace();
+            log.error(localdatetime + "" + ex.getErrorCode());
         }
     return deptList;
     }

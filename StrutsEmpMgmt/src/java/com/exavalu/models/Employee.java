@@ -10,8 +10,10 @@ import com.exavalu.services.RoleService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import org.apache.struts2.dispatcher.ApplicationMap;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.ApplicationAware;
@@ -37,6 +39,8 @@ public class Employee extends ActionSupport implements ApplicationAware, Session
     private String basicSalary;
     private String carAllowance;
     private String specialAllowance;
+    Logger log = Logger.getLogger(User.class.getName());
+    LocalDateTime localdatetime = LocalDateTime.now();
 
     private SessionMap<String, Object> sessionMap = (SessionMap) ActionContext.getContext().getSession();
 
@@ -73,6 +77,9 @@ public class Employee extends ActionSupport implements ApplicationAware, Session
             ArrayList empList2 = EmployeeService.getInstance().getAllEmployees();
             sessionMap.put("EmpList", empList2);
             result = "SUCCESS";
+        }else {            
+            log.error(localdatetime+"  "+"Might be some error with service method");
+            System.out.println("returning Failure from doLogin method");
         }
 
         return result;
@@ -87,6 +94,10 @@ public class Employee extends ActionSupport implements ApplicationAware, Session
             sessionMap.put("Emp", emp);
             result = "SUCCESS";
         }
+        else {            
+            log.error(localdatetime+"  "+"Get employee service method is not fetching details properly");
+            System.out.println("returning Failure from doLogin method");
+        }
 
         return result;
     }
@@ -100,6 +111,9 @@ public class Employee extends ActionSupport implements ApplicationAware, Session
             sessionMap.put("EmpList", empList2);
 
             result = "SUCCESS";
+        }else {            
+            log.error(localdatetime+"  "+"Data inserted is invalid");
+            System.out.println("returning Failure from doLogin method");
         }
 
         return result;

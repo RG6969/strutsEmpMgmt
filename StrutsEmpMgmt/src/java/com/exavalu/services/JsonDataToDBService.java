@@ -5,6 +5,8 @@
 package com.exavalu.services;
 
 import com.exavalu.models.Transcript;
+import static com.exavalu.services.EmployeeService.localdatetime;
+import static com.exavalu.services.EmployeeService.log;
 import com.exavalu.utils.JDBCConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,15 +40,14 @@ public class JsonDataToDBService {
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            log.error(localdatetime + "" + ex.getErrorCode());
         }
 
         return result;
     }
 
+    public static boolean InsertJsonData(Transcript[] transcript) {
 
-public static boolean InsertJsonData(Transcript[] transcript) {
-    
         boolean result = true;
 
         try {
@@ -70,10 +71,11 @@ public static boolean InsertJsonData(Transcript[] transcript) {
 //                result = true;
 //            }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log.error(localdatetime + "" + ex.getErrorCode());
         }
 
         return result;
     }
-    
+
 }

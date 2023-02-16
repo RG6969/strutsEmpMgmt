@@ -5,6 +5,8 @@
 package com.exavalu.services;
 
 import com.exavalu.models.Roles;
+import static com.exavalu.services.EmployeeService.localdatetime;
+import static com.exavalu.services.EmployeeService.log;
 import com.exavalu.utils.JDBCConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,7 +40,8 @@ public class RoleService {
             
             
         } catch (SQLException ex) {
-            ex.printStackTrace();
+//            ex.printStackTrace();
+            log.error(localdatetime + "" + ex.getErrorCode());
         }
     return roleList;
     }

@@ -14,6 +14,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import org.apache.struts2.dispatcher.ApplicationMap;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.ApplicationAware;
@@ -83,6 +84,12 @@ public class Transcript extends ActionSupport implements ApplicationAware, Sessi
         if (dataEntry) {
             result = "SUCCESS";
         }
+        else {
+            Logger log = Logger.getLogger(User.class.getName());
+            log.error("returning Failure from Login method");
+            System.out.println("returning Failure from doLogin method");
+        }
+
         
         return result;
         

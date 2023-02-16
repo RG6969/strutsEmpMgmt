@@ -11,8 +11,10 @@ import com.exavalu.services.RoleService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import org.apache.struts2.dispatcher.ApplicationMap;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.ApplicationAware;
@@ -32,6 +34,8 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
     private String countryCode;
     private String provinceCode;
     private String districtCode;
+    Logger log = Logger.getLogger(User.class.getName());
+    LocalDateTime localdatetime = LocalDateTime.now();
 
     private SessionMap<String, Object> sessionMap = (SessionMap) ActionContext.getContext().getSession();
 
@@ -50,6 +54,7 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
     public String doLogin() throws Exception {
        
         String result = "FAILURE";
+        
 
         boolean success = LoginService.getInstance().doLogin(this);
 
@@ -65,6 +70,8 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
             sessionMap.put("EmpList", empList);
             result = "SUCCESS";
         } else {
+            
+            log.error(localdatetime+"  "+"Either Email Address or Password is wrong");
             System.out.println("returning Failure from doLogin method");
         }
 
@@ -79,8 +86,11 @@ public class User extends ActionSupport implements ApplicationAware, SessionAwar
         String result="FAILURE";
         boolean result1 = LoginService.getInstance().doRegister(this);         
         if(result1){
-            result = "SUCCESS";
-            
+            result = "SUCCESS";            
+        }
+        else {            
+            log.error(localdatetime+"  "+"Either Email Address or Password is wrong");
+            System.out.println("returning Failure from doLogin method");
         }
         System.out.println(sessionMap);
         
